@@ -4,13 +4,14 @@ import { RouterView } from 'vue-router'
 
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer>
-      <!--  -->
-    </v-navigation-drawer>
+    <v-app-bar color="#42A5F5">
+      <v-btn color="white" variant="text">
+        Home Page
+      </v-btn>
 
-    <v-app-bar>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-btn color="white" variant="text">
+        To-Do List
+      </v-btn>
     </v-app-bar>
 
     <v-main>
