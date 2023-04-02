@@ -3,6 +3,8 @@ import { useTodoStore } from '@/stores/todo'
 import { ref } from 'vue';
 
 const todoStore = useTodoStore()
+
+// v-data-table
 const search = ref('')
 const sortBy = ref([])
 const headers = [
@@ -10,6 +12,7 @@ const headers = [
   { title: 'Title', key: 'title', sortable: false },
   { title: 'End Date', key: 'endDate' },
   { title: 'Status', key: 'state' },
+  { title: 'Actions', key: 'actions', sortable: false },
 ]
 </script>
 
@@ -40,6 +43,25 @@ const headers = [
               density="compact"
             />
           </v-responsive>
+        </div>
+      </template>
+
+      <template v-slot:item.actions="{ item }">
+        <div class="d-flex">
+          <v-btn
+            icon="mdi-pencil"
+            variant="outlined"
+            size="x-small"
+            color="blue"
+            class="mr-2"
+          />
+  
+          <v-btn
+            icon="mdi-delete"
+            variant="outlined"
+            size="x-small"
+            color="red"
+          />
         </div>
       </template>
     </v-data-table>
