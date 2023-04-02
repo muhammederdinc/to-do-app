@@ -1,8 +1,11 @@
 <script setup>
-import { useTodoStore } from '@/stores/todo'
 import { ref } from 'vue';
+// Stores
+import { useTodoStore } from '@/stores/todo'
+import { useGlobalNavigationDrawer } from '@/stores/globalNavigationDrawer'
 
 const todoStore = useTodoStore()
+const navigationDrawerStore = useGlobalNavigationDrawer()
 
 // v-data-table
 const search = ref('')
@@ -14,6 +17,24 @@ const headers = [
   { title: 'Status', key: 'state' },
   { title: 'Actions', key: 'actions', sortable: false },
 ]
+
+// Edit Task with Global Navigation Drawer
+const navigationFormData = ref({
+  title: '',
+  endDate: '',
+})
+
+const openGlobalNavigationDrawer = (item) => {
+  navigationDrawerStore.open()
+  navigationFormData.value = { ...item }
+}
+
+const updateTask = () => {
+  const params = { ...navigationFormData.value }
+
+  todoStore.updateItem(params.id, params)
+  navigationDrawerStore.close()
+}
 </script>
 
 <template>
@@ -54,6 +75,7 @@ const headers = [
             size="x-small"
             color="blue"
             class="mr-2"
+            @click="openGlobalNavigationDrawer(item.raw)"
           />
   
           <v-btn
@@ -65,6 +87,43 @@ const headers = [
         </div>
       </template>
     </v-data-table>
+
+    <Teleport to="#global-navigation-drawer">
+        <div class="text-center mt-5">
+          <h3>Edit Task</h3>
+
+          <v-text-field
+            v-model="navigationFormData.title"
+            variant="outlined"
+            label="Search"
+            class="pa-4"
+            clearable
+            density="compact"
+          />
+
+          <!-- {{ navigationFormData.endDate }} -->
+          <div class="mx-3">
+            <v-btn
+              class="mb-3"
+              variant="outlined"
+              color="success"
+              block
+              @click="updateTask"
+            >
+              Update
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              color="red"
+              block
+              @click="navigationDrawerStore.close()"
+            >
+              Close
+            </v-btn>
+          </div>
+        </div>
+      </Teleport>
   </div>
 </template>
 
