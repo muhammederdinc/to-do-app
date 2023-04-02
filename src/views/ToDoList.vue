@@ -32,7 +32,7 @@ const openGlobalNavigationDrawer = (item) => {
 const updateTask = () => {
   const params = { ...navigationFormData.value }
 
-  todoStore.updateItem(params.id, params)
+  todoStore.updateTodo(params.id, params)
   navigationDrawerStore.close()
 }
 </script>
@@ -83,6 +83,7 @@ const updateTask = () => {
             variant="outlined"
             size="x-small"
             color="red"
+            @click="todoStore.deleteTodo(item.raw.id)"
           />
         </div>
       </template>
