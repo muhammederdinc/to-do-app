@@ -3,9 +3,12 @@ import { ref } from 'vue';
 // Stores
 import { useTodoStore } from '@/stores/todo'
 import { useGlobalNavigationDrawer } from '@/stores/globalNavigationDrawer'
+// Components
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
+// Stores Instance
 const todoStore = useTodoStore()
-const navigationDrawerStore = useGlobalNavigationDrawer()
 
 // v-data-table
 const search = ref('')
@@ -19,6 +22,8 @@ const headers = [
 ]
 
 // Edit Task with Global Navigation Drawer
+const navigationDrawerStore = useGlobalNavigationDrawer()
+
 const navigationFormData = ref({
   title: '',
   endDate: '',
@@ -30,7 +35,10 @@ const openGlobalNavigationDrawer = (item) => {
 }
 
 const updateTask = () => {
-  const params = { ...navigationFormData.value }
+  const params = {
+    ...navigationFormData.value,
+    endDate: navigationFormData.value.endDate.toLocaleDateString("en-US", {day: "2-digit", month: "2-digit", year: "numeric"}).replace(/\./g, "-")
+   }
 
   todoStore.updateTodo(params.id, params)
   navigationDrawerStore.close()
@@ -93,17 +101,22 @@ const updateTask = () => {
         <div class="text-center mt-5">
           <h3>Edit Task</h3>
 
-          <v-text-field
-            v-model="navigationFormData.title"
-            variant="outlined"
-            label="Search"
-            class="pa-4"
-            clearable
-            density="compact"
-          />
+          <div class="px-4">
+            <v-text-field
+              v-model="navigationFormData.title"
+              variant="outlined"
+              label="Search"
+              clearable
+              density="compact"
+            />
+  
+            <VueDatePicker
+              v-model="navigationFormData.endDate"
+              :enable-time-picker="false"
+            />
+          </div>
 
-          <!-- {{ navigationFormData.endDate }} -->
-          <div class="mx-3">
+          <div class="mx-3 mt-8">
             <v-btn
               class="mb-3"
               variant="outlined"
