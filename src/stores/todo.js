@@ -8,7 +8,7 @@ export const useTodoStore = defineStore("todo", () => {
   const items = ref([
     { id: 0, title: "Learn Vue 3", endDate: "01/14/2023", state: TodoStatus.TODO },
     { id: 1, title: "Learn Vue 2", endDate: "09/14/2023", state: TodoStatus.COMPLETED },
-    { id: 2, title: "Learn Vue 2222", endDate: "24/14/2023", state: TodoStatus.COMPLETED },
+    { id: 2, title: "Learn Vue 2222", endDate: "04/14/2023", state: TodoStatus.COMPLETED },
   ]);
 
   // Actions
