@@ -37,7 +37,12 @@ const routingButtons = [
       </v-list>
     </v-navigation-drawer>
 
-    <v-navigation-drawer v-show="navigationDrawerStore.isVisible" v-model="navigationDrawerStore.isVisible" location="right">
+    <v-navigation-drawer
+      v-show="navigationDrawerStore.isVisible"
+      v-model="navigationDrawerStore.isVisible"
+      location="right"
+      width="300"
+    >
       <div id="global-navigation-drawer" />
     </v-navigation-drawer>
 
