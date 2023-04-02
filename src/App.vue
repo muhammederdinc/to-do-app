@@ -2,7 +2,8 @@
 import { RouterView } from 'vue-router'
 import { ref } from 'vue'
 // Components
-import TDHeader from './components/TDHeader.vue'
+import THeader from './components/THeader.vue'
+import TFooter from './components/TFooter.vue'
 
 const isDrawerVisible = ref(false)
 const routingButtons = [
@@ -33,7 +34,7 @@ const routingButtons = [
       </v-list>
     </v-navigation-drawer>
 
-    <TDHeader
+    <THeader
       :routingButtons="routingButtons"
       @toggleDrawerVisibility="isDrawerVisible = !isDrawerVisible"
     />
@@ -41,5 +42,7 @@ const routingButtons = [
     <v-main>
       <RouterView />
     </v-main>
+
+    <TFooter />
   </v-app>
 </template>
