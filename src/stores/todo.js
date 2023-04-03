@@ -26,5 +26,15 @@ export const useTodoStore = defineStore("todo", () => {
     ];
   };
 
-  return { items, updateTodo, deleteTodo };
+  const addTodo = (item) => {
+    const newTodo = {
+      id: items.value.length,
+      state: TodoStatus.TODO,
+      ...item,
+    }
+
+    items.value = [...items.value, newTodo];
+  };
+
+  return { items, updateTodo, deleteTodo, addTodo };
 });
