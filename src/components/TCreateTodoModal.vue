@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 // Components
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
@@ -9,6 +9,28 @@ const formData = reactive({
   title: '',
   endDate: ''
 })
+
+const emit = defineEmits(['submit'])
+const form = ref(null)
+const isEndDateErrorMessageVisible = ref(false)
+const titleRules = [
+  v => !!v || 'Title is required',
+  v => (v && v.length <= 10) || 'Title must be less than 30 characters',
+  v => /^[a-zA-Z ]+$/.test(v) || 'Title can only contain letters and spaces'
+]
+
+const submit = async () => {
+  isEndDateErrorMessageVisible.value = false
+  const { valid } = await form.value.validate()
+
+  if (!formData.endDate) {
+    isEndDateErrorMessageVisible.value = true
+  }
+
+  if (valid && !isEndDateErrorMessageVisible.value) {
+    emit('submit', formData)
+  }
+}
 </script>
 
 <template>
@@ -23,20 +45,31 @@ const formData = reactive({
       </v-card-title>
 
       <v-card-text>
-        <v-text-field
-          v-model="formData.title"
-          variant="outlined"
-          label="Title"
-          clearable
-          density="compact"
-          class="mt-2"
-        />
+        <v-form ref="form">
+          <v-text-field
+            v-model="formData.title"
+            :rules="titleRules"
+            variant="outlined"
+            label="Title"
+            clearable
+            density="compact"
+            class="my-2"
+          />
+          
+          <VueDatePicker
+            v-model="formData.endDate"
+            :enable-time-picker="false"
+            :teleport="true"
+          />
 
-        <VueDatePicker
-          v-model="formData.endDate"
-          :enable-time-picker="false"
-          :teleport="true"
-        />
+          <div v-if="isEndDateErrorMessageVisible" class="v-input__details pl-3 text-error">
+            <div class="v-messages" role="alert" aria-live="polite">
+              <div class="v-messages__message">
+                Title is required
+              </div>
+            </div>
+            </div>
+        </v-form>
       </v-card-text>
 
       <v-divider />
@@ -54,7 +87,7 @@ const formData = reactive({
         <v-btn
           color="blue"
           variant="outlined"
-          @click="$emit('submit', formData)"
+          @click="submit"
         >
           Create
         </v-btn>
