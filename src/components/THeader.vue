@@ -29,7 +29,12 @@ defineProps({
 
     <v-spacer />
 
-    <v-btn class="d-none d-sm-flex" color="white" variant="outlined">
+    <v-btn
+      class="d-none d-sm-flex"
+      color="white"
+      variant="outlined"
+      @click="$emit('showCreateTodoModal')"
+    >
       <v-icon class="mr-1">mdi-plus</v-icon>
 
       Add To-Do
@@ -41,6 +46,7 @@ defineProps({
       variant="outlined"
       color="white"
       icon="mdi-plus"
+      @click="$emit('showCreateTodoModal')"
     />
   </v-app-bar>
 </template>
