@@ -7,6 +7,7 @@ import TFooter from './components/TFooter.vue'
 import TCreateTodoModal from './components/TCreateTodoModal.vue'
 // Stores
 import { useGlobalNavigationDrawer } from '@/stores/globalNavigationDrawer'
+import { useTodoStore } from '@/stores/todo'
 
 const navigationDrawerStore = useGlobalNavigationDrawer()
 const isDrawerVisible = ref(false)
@@ -22,6 +23,15 @@ const routingButtons = [
     path: '/to-do-list'
   }
 ]
+
+// Create a new todo
+const todoStore = useTodoStore()
+const isModalVisible = ref(false)
+
+const createTodo = (params) => {
+  todoStore.addTodo(params)
+  isModalVisible.value = false
+}
 </script>
 
 <template>
@@ -50,6 +60,7 @@ const routingButtons = [
     <THeader
       :routingButtons="routingButtons"
       @toggleDrawerVisibility="isDrawerVisible = !isDrawerVisible"
+      @showCreateTodoModal="isModalVisible = true"
     />
 
     <v-main class="ma-5">
@@ -57,6 +68,10 @@ const routingButtons = [
     </v-main>
 
     <TFooter />
-    <TCreateTodoModal />
+    <TCreateTodoModal
+      v-if="isModalVisible"
+      @submit="createTodo"
+      @close="isModalVisible = false"
+    />
   </v-app>
 </template>
