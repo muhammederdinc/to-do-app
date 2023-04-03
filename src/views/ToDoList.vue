@@ -67,6 +67,26 @@ const updateTask = () => {
         />
       </template>
 
+      <template v-slot:item.title="{ item }">
+        <span v-if="item.raw.state === TodoStatus.COMPLETED" class="text-decoration-line-through">
+          {{ item.title }}
+        </span>
+
+        <span v-else>
+          {{ item.title }}
+        </span>
+      </template>
+
+      <template v-slot:item.endDate="{ item }">
+        <span v-if="item.raw.state === TodoStatus.COMPLETED" class="text-decoration-line-through">
+          {{ item.raw.endDate }}
+        </span>
+
+        <span v-else>
+          {{ item.raw.endDate }}
+        </span>
+      </template>
+
       <template v-slot:top>
         <div class="t-to-do-list__table-header d-flex align-center pl-3">
           <h3>My To-do List </h3>
