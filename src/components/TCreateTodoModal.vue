@@ -26,7 +26,7 @@ const formData = reactive({
         <v-text-field
           v-model="formData.title"
           variant="outlined"
-          label="Search"
+          label="Title"
           clearable
           density="compact"
           class="mt-2"
