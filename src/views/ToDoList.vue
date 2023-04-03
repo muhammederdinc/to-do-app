@@ -6,6 +6,8 @@ import { useGlobalNavigationDrawer } from '@/stores/globalNavigationDrawer'
 // Components
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+// Constants
+import { TodoStatus } from '@/constants/index.js';
 
 // Stores Instance
 const todoStore = useTodoStore()
@@ -14,6 +16,7 @@ const todoStore = useTodoStore()
 const search = ref('')
 const sortBy = ref([])
 const headers = [
+  { title: '', key: 'statusAction', sortable: false },
   { title: 'ID', key: 'id', sortable: false },
   { title: 'Title', key: 'title', sortable: false },
   { title: 'End Date', key: 'endDate' },
@@ -37,7 +40,7 @@ const openGlobalNavigationDrawer = (item) => {
 const updateTask = () => {
   const params = {
     ...navigationFormData.value,
-    endDate: navigationFormData.value.endDate.toLocaleDateString("en-US", {day: "2-digit", month: "2-digit", year: "numeric"}).replace(/\./g, "-")
+    endDate: new Intl.DateTimeFormat("en-US").format(new Date(navigationFormData.value.endDate))
    }
 
   todoStore.updateTodo(params.id, params)
@@ -54,6 +57,16 @@ const updateTask = () => {
       :search="search"
       class="elevation-1"
     >
+      <template v-slot:item.statusAction="{ item }">
+        <v-checkbox
+          v-model="item.raw.state"
+          color="success"
+          :value="TodoStatus.COMPLETED"
+          :false-value="TodoStatus.TODO"
+          hide-details
+        />
+      </template>
+
       <template v-slot:top>
         <div class="t-to-do-list__table-header d-flex align-center pl-3">
           <h3>My To-do List </h3>
