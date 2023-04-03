@@ -1,3 +1,9 @@
+<script setup>
+const title = 'HomeView'
+</script>
+
 <template>
-  Home View
+  <div style="height: 1400px;">
+    {{ title }}
+  </div>
 </template>

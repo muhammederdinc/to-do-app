@@ -10,6 +10,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vuepic/vue-datepicker": "^4.3.0",
     "pinia": "^2.0.32",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
@@ -23,6 +24,8 @@
     "eslint": "^8.34.0",
     "eslint-plugin-vue": "^9.9.0",
     "prettier": "^2.8.4",
+    "sass": "^1.60.0",
+    "sass-loader": "^13.2.2",
     "vite": "^4.1.4"
   }
 }

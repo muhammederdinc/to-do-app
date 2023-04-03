@@ -4,7 +4,10 @@ import { ref } from 'vue'
 // Components
 import THeader from './components/THeader.vue'
 import TFooter from './components/TFooter.vue'
+// Stores
+import { useGlobalNavigationDrawer } from '@/stores/globalNavigationDrawer'
 
+const navigationDrawerStore = useGlobalNavigationDrawer()
 const isDrawerVisible = ref(false)
 const routingButtons = [
   {
@@ -34,12 +37,21 @@ const routingButtons = [
       </v-list>
     </v-navigation-drawer>
 
+    <v-navigation-drawer
+      v-show="navigationDrawerStore.isVisible"
+      v-model="navigationDrawerStore.isVisible"
+      location="right"
+      width="300"
+    >
+      <div id="global-navigation-drawer" />
+    </v-navigation-drawer>
+
     <THeader
       :routingButtons="routingButtons"
       @toggleDrawerVisibility="isDrawerVisible = !isDrawerVisible"
     />
 
-    <v-main>
+    <v-main class="ma-5">
       <RouterView />
     </v-main>
 
