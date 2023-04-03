@@ -79,11 +79,11 @@ const updateTask = () => {
 
       <template v-slot:item.endDate="{ item }">
         <span v-if="item.raw.state === TodoStatus.COMPLETED" class="text-decoration-line-through">
-          {{ item.raw.endDate }}
+          {{ new Intl.DateTimeFormat("en-US").format(new Date(item.raw.endDate)) }}
         </span>
 
         <span v-else>
-          {{ item.raw.endDate }}
+          {{ new Intl.DateTimeFormat("en-US").format(new Date(item.raw.endDate)) }}
         </span>
       </template>
 
