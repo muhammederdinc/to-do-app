@@ -2,7 +2,7 @@
 import { reactive, ref } from 'vue'
 // Components
 import VueDatePicker from '@vuepic/vue-datepicker';
-import { TInputErrorMessage } from '@/components/TInputErrorMessage.vue'
+import TInputErrorMessage from './TInputErrorMessage.vue'
 // Styles
 import '@vuepic/vue-datepicker/dist/main.css'
 
