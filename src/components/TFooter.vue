@@ -1,5 +1,5 @@
 <template>
-  <v-footer color="#42A5F5" class="t-footer d-flex justify-center text-white">
+  <v-footer color="blue-lighten-1" class="t-footer d-flex justify-center text-white">
     <span>
       To-Do List Application - 2023
     </span>

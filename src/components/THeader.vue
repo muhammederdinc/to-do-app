@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-  <v-app-bar class="px-2" color="#42A5F5">
+  <v-app-bar class="px-2" color="blue-lighten-1">
     <v-app-bar-nav-icon
       class="d-sm-none pa-0 ma-0"
       color="white"
