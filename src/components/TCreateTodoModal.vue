@@ -2,6 +2,8 @@
 import { reactive, ref } from 'vue'
 // Components
 import VueDatePicker from '@vuepic/vue-datepicker';
+import { TInputErrorMessage } from '@/components/TInputErrorMessage.vue'
+// Styles
 import '@vuepic/vue-datepicker/dist/main.css'
 
 const showModal = true
@@ -62,13 +64,10 @@ const submit = async () => {
             :teleport="true"
           />
 
-          <div v-if="isEndDateErrorMessageVisible" class="v-input__details pl-3 text-error">
-            <div class="v-messages" role="alert" aria-live="polite">
-              <div class="v-messages__message">
-                Title is required
-              </div>
-            </div>
-            </div>
+          <TInputErrorMessage
+            v-if="isEndDateErrorMessageVisible"
+            message="Title is required"
+          />
         </v-form>
       </v-card-text>
 
