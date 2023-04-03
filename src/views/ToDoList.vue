@@ -38,12 +38,7 @@ const openGlobalNavigationDrawer = (item) => {
 }
 
 const updateTask = () => {
-  const params = {
-    ...navigationFormData.value,
-    endDate: new Intl.DateTimeFormat("en-US").format(new Date(navigationFormData.value.endDate))
-   }
-
-  todoStore.updateTodo(params.id, params)
+  todoStore.updateTodo(navigationFormData.value.id, navigationFormData.value)
   navigationDrawerStore.close()
 }
 </script>
