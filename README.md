@@ -1,10 +1,21 @@
-# .
+# To-Do App
+Welcome to the Todo App, a mobile-responsive web application built using Vue 3, Pinia, Vuetify, SCSS, and Vite. With this powerful combination of technologies, the Todo App provides a fast, responsive, and visually appealing user experience.
 
-This template should help get you started developing with Vue 3 in Vite.
+## Preview
+https://to-do-app-tau-green.vercel.app/
 
-## Recommended IDE Setup
+## Tech Stack
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+The Todo App was built using the following technologies:
+
+* Vue 3: A popular JavaScript framework for building user interfaces.
+* Pinia: A state management library for Vue 3 that provides a simple and intuitive API.
+* Vuetify: A Material Design component library for Vue 3 that provides a wide range of UI elements and patterns.
+* SCSS: A preprocessor for CSS that allows you to write more efficient and maintainable styles.
+* Vite: A build tool that enables fast and efficient development workflows by leveraging the native module system of modern browsers.
+
+With this powerful combination of technologies, the Todo App provides a fast, responsive, and visually appealing user experience. Vue 3 and Pinia work together seamlessly to provide efficient state management and reactive updates, while Vuetify provides a comprehensive set of UI components that help ensure a consistent and polished look and feel. Additionally, SCSS makes it easy to write and maintain CSS styles by providing useful features such as variables, mixins, and nesting.
+
 
 ## Customize configuration
 
