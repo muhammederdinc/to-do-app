@@ -11,6 +11,7 @@ import { useTodoList } from './composables/todoList'
 
 const { search, sortBy, ToDoListTableHeaders, TodoStatus } = useTodoList()
 const todoStore = useTodoStore()
+const todoList = ref(todoStore.items)
 
 // Edit Task with Global Navigation Drawer
 const navigationDrawerStore = useGlobalNavigationDrawer()
@@ -28,6 +29,10 @@ const openGlobalNavigationDrawer = (item) => {
 const updateTask = () => {
   todoStore.updateTodo(navigationFormData.value.id, navigationFormData.value)
   navigationDrawerStore.close()
+}
+
+const searchTodo = ({ target }) => {
+  todoList.value = todoStore.items.filter((todo) => todo.title.toLowerCase().includes(target.value.toLowerCase()))
 }
 </script>
 
@@ -117,70 +122,74 @@ const updateTask = () => {
       </v-data-table>
     </div>
 
-    <v-card class="mt-5 d-sm-none" v-for="todo in todoStore.items" :key="todo.id">
-      <v-card-title>
-        {{ todo.title }}
-      </v-card-title>
+    <div class="d-sm-none">
+      <v-text-field label="Search" variant="outlined" @input="searchTodo" />
 
-      <v-card-text class="d-flex flex-column">
-        <span>
-          <v-icon class="mr-1" color="blue">
-            mdi-clock
-          </v-icon>
+      <v-card class="mt-5" v-for="todo in todoList" :key="todo.id">
+        <v-card-title>
+          {{ todo.title }}
+        </v-card-title>
 
-          <span :class="todo.state === TodoStatus.COMPLETED ? 'text-decoration-line-through' : ''">
-            {{ new Intl.DateTimeFormat("en-US").format(new Date(todo.endDate)) }}
+        <v-card-text class="d-flex flex-column">
+          <span>
+            <v-icon class="mr-1" color="blue">
+              mdi-clock
+            </v-icon>
+
+            <span :class="todo.state === TodoStatus.COMPLETED ? 'text-decoration-line-through' : ''">
+              {{ new Intl.DateTimeFormat("en-US").format(new Date(todo.endDate)) }}
+            </span>
+
           </span>
 
-        </span>
+          <span class="mt-2">
+            <v-icon class="mr-1" color="blue">
+              {{ todo.state === TodoStatus.COMPLETED ? 'mdi-check' : 'mdi-progress-clock' }}
+            </v-icon>
 
-        <span class="mt-2">
-          <v-icon class="mr-1" color="blue">
-            {{ todo.state === TodoStatus.COMPLETED ? 'mdi-check' : 'mdi-progress-clock' }}
-          </v-icon>
+            {{ todo.state }}
+          </span>
+        </v-card-text>
 
-          {{ todo.state }}
-        </span>
-      </v-card-text>
+        <v-card-actions>
+          <v-switch
+            v-model="todo.state"
+            color="success"
+            :value="TodoStatus.COMPLETED"
+            :false-value="TodoStatus.TODO"
+            hide-details
+          />
+          <v-spacer />
 
-      <v-card-actions>
-        <v-switch
-          v-model="todo.state"
-          color="success"
-          :value="TodoStatus.COMPLETED"
-          :false-value="TodoStatus.TODO"
-          hide-details
-        />
-        <v-spacer />
+          <v-btn
+            variant="outlined"
+            size="small"
+            color="blue"
+            class="mr-2"
+            @click="openGlobalNavigationDrawer(todo)"
+          >
+            <v-icon>
+              mdi-pencil
+            </v-icon>
 
-        <v-btn
-          variant="outlined"
-          size="small"
-          color="blue"
-          class="mr-2"
-          @click="openGlobalNavigationDrawer(todo)"
-        >
-          <v-icon>
-            mdi-pencil
-          </v-icon>
+            Edit
+          </v-btn>
 
-          Edit
-        </v-btn>
+          <v-btn
+            variant="outlined"
+            size="small"
+            color="red"
+            @click="todoStore.deleteTodo(todo.id)"
+          >
+            <v-icon>
+              mdi-delete
+            </v-icon>
 
-        <v-btn
-          variant="outlined"
-          size="small"
-          color="red"
-          @click="todoStore.deleteTodo(todo.id)"
-        >
-          <v-icon>
-            mdi-delete
-          </v-icon>
-
-          Delete
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+            Delete
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </div>
 
     <Teleport to="#global-navigation-drawer">
       <div class="text-center mt-5">
