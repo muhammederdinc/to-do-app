@@ -139,7 +139,13 @@ const {
         class="mt-5"
       >
         <v-card-title>
-          {{ todo.title }}
+          <router-link
+            class="text-decoration-none"
+            :to="{ name: 'todoDetail',
+            params: { id: todo.id }}"
+          >
+            {{ todo.title }}
+          </router-link>
         </v-card-title>
 
         <v-card-text class="d-flex flex-column">
