@@ -8,8 +8,13 @@ export const useTodoStore = defineStore("todo", () => {
   const items = ref([
     { id: 0, title: "Learn Vue 3", endDate: "1/14/2023", state: TodoStatus.TODO },
     { id: 1, title: "Learn Vue 2", endDate: "9/14/2023", state: TodoStatus.COMPLETED },
-    { id: 2, title: "Learn Vue 2222", endDate: "4/14/2023", state: TodoStatus.COMPLETED },
+    { id: 2, title: "Learn Pinia", endDate: "4/14/2023", state: TodoStatus.COMPLETED },
   ]);
+
+  // Getters
+  const getTodoById = (id) => {
+    return items.value.find((item) => item.id === id);
+  };
 
   // Actions
   const updateTodo = (id, item) => {
@@ -36,5 +41,5 @@ export const useTodoStore = defineStore("todo", () => {
     items.value = [...items.value, newTodo];
   };
 
-  return { items, updateTodo, deleteTodo, addTodo };
+  return { items, updateTodo, deleteTodo, addTodo, getTodoById };
 });

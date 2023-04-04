@@ -63,13 +63,15 @@ const updateTask = () => {
       </template>
 
       <template v-slot:item.title="{ item }">
-        <span v-if="item.raw.state === TodoStatus.COMPLETED" class="text-decoration-line-through">
-          {{ item.title }}
-        </span>
-
-        <span v-else>
-          {{ item.title }}
-        </span>
+        <router-link :to="{ name: 'todoDetail', params: { id: item.raw.id }}">
+          <span v-if="item.raw.state === TodoStatus.COMPLETED" class="text-decoration-line-through">
+            {{ item.title }}
+          </span>
+          
+          <span v-else>
+            {{ item.title }}
+          </span>
+        </router-link>
       </template>
 
       <template v-slot:item.endDate="{ item }">

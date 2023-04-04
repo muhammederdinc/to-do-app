@@ -3,7 +3,7 @@ const title = 'HomeView'
 </script>
 
 <template>
-  <div style="height: 1400px;">
+  <div>
     {{ title }}
   </div>
 </template>
