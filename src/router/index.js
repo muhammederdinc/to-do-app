@@ -6,17 +6,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: import('../views/HomeView.vue')
+      component: () => import('../views/HomeView.vue')
     },
     {
       path: '/to-do-list',
       name: 'todo',
-      component: import('../views/TodoList/TodoList.vue')
+      component: () => import('../views/TodoListView/TodoListView.vue')
     },
     {
       path: '/todo/:id',
       name: 'todoDetail',
-      component: import('../views/TodoDetail/TodoDetail.vue')
+      component: () => import('../views/TodoDetailView/TodoDetailView.vue')
     },
   ]
 })
