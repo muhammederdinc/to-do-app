@@ -4,7 +4,7 @@ import { ref } from 'vue'
 // Components
 import THeader from './components/THeader.vue'
 import TFooter from './components/TFooter.vue'
-import TCreateTodoModal from './components/TCreateTodoModal.vue'
+import TCreateTodoModal from './components/TCreateTodoModal/TCreateTodoModal.vue'
 // Stores
 import { useGlobalNavigationDrawer } from '@/stores/globalNavigationDrawer'
 import { useSnackbarStore } from '@/stores/snackbar'

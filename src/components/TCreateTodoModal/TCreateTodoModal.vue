@@ -1,38 +1,23 @@
 <script setup>
-import { reactive, ref } from 'vue'
 // Components
 import VueDatePicker from '@vuepic/vue-datepicker';
-import TInputErrorMessage from './TInputErrorMessage.vue'
+import TInputErrorMessage from '../TInputErrorMessage.vue'
 // Styles
 import '@vuepic/vue-datepicker/dist/main.css'
+// Composables
+import { useCreateTodoModal } from './composables/createTodoModal'
 
-const showModal = true
-const formData = reactive({
-  title: '',
-  endDate: ''
-})
-
+// Emits
 const emit = defineEmits(['submit'])
-const form = ref(null)
-const isEndDateErrorMessageVisible = ref(false)
-const titleRules = [
-  v => !!v || 'Title is required',
-  v => (v && v.length <= 30) || 'Title must be less than 30 characters',
-  v => /^[a-zA-Z ]+$/.test(v) || 'Title can only contain letters and spaces'
-]
 
-const submit = async () => {
-  isEndDateErrorMessageVisible.value = false
-  const { valid } = await form.value.validate()
-
-  if (!formData.endDate) {
-    isEndDateErrorMessageVisible.value = true
-  }
-
-  if (valid && !isEndDateErrorMessageVisible.value) {
-    emit('submit', formData)
-  }
-}
+const {
+  form,
+  submit,
+  formData,
+  showModal,
+  titleRules,
+  isEndDateErrorMessageVisible
+} = useCreateTodoModal(emit)
 </script>
 
 <template>
