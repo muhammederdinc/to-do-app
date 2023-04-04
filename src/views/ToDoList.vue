@@ -7,7 +7,7 @@ import { useGlobalNavigationDrawer } from '@/stores/globalNavigationDrawer'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 // Constants
-import { TodoStatus } from '@/constants/index.js';
+import { TodoStatus, ToDoListTableHeaders } from '@/constants/index.js';
 
 // Stores Instance
 const todoStore = useTodoStore()
@@ -15,14 +15,6 @@ const todoStore = useTodoStore()
 // v-data-table
 const search = ref('')
 const sortBy = ref([])
-const headers = [
-  { title: '', key: 'statusAction', sortable: false },
-  { title: 'ID', key: 'id', sortable: false },
-  { title: 'Title', key: 'title', sortable: false },
-  { title: 'End Date', key: 'endDate' },
-  { title: 'Status', key: 'state' },
-  { title: 'Actions', key: 'actions', sortable: false },
-]
 
 // Edit Task with Global Navigation Drawer
 const navigationDrawerStore = useGlobalNavigationDrawer()
@@ -47,7 +39,7 @@ const updateTask = () => {
   <div class="t-to-do-list">
     <v-data-table
       v-model:sort-by="sortBy"
-      :headers="headers"
+      :headers="ToDoListTableHeaders"
       :items="todoStore.items"
       :search="search"
       class="elevation-1"
