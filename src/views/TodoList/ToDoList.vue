@@ -1,44 +1,22 @@
 <script setup>
-import { reactive, ref } from 'vue';
-// Stores
-import { useTodoStore } from '@/stores/todo'
-// Components
 import TEditTodoTeleport from '@/components/TEditTodoTeleport.vue'
-// Composables
-import { useEditTodoWithTeleport } from '@/composables/editTodoWithTeleport'
 import { useTodoList } from './composables/todoList'
 
-const { search, sortBy, ToDoListTableHeaders, TodoStatus } = useTodoList()
-const todoStore = useTodoStore()
-const todoList = ref(todoStore.items)
-const { updateTask, openNavigationDrawer, closeNavigationDrawer } = useEditTodoWithTeleport()
-
-// Edit Task with Global Navigation Drawer
-const navigationFormData = reactive({})
-
-const openGlobalNavigationDrawer = (item) => {
-  navigationFormData.id = item.id
-  navigationFormData.title = item.title
-  navigationFormData.endDate = item.endDate
-  navigationFormData.state = item.state
-
-  openNavigationDrawer()
-}
-
-const searchTodo = ({ target }) => {
-  todoList.value = todoStore.items.filter((todo) => todo.title.toLowerCase().includes(target.value.toLowerCase()))
-}
-
-const filterStatus = ref('')
-const filterTodo = () => {
-  if(!filterStatus.value) {
-    todoList.value = todoStore.items
-
-    return
-  }
-
-  todoList.value = todoStore.items.filter((todo) => todo.state === filterStatus.value)
-}
+const {
+  search,
+  sortBy,
+  todoList,
+  deleteTodo,
+  updateTask,
+  TodoStatus,
+  searchTodo,
+  filterTodo,
+  filterStatus,
+  navigationFormData,
+  ToDoListTableHeaders,
+  closeNavigationDrawer,
+  openGlobalNavigationDrawer
+} = useTodoList()
 </script>
 
 <template>
@@ -132,7 +110,7 @@ const filterTodo = () => {
               variant="outlined"
               size="x-small"
               color="red"
-              @click="todoStore.deleteTodo(item.raw.id)"
+              @click="deleteTodo(item.raw.id)"
             />
           </div>
         </template>
@@ -207,7 +185,7 @@ const filterTodo = () => {
             variant="outlined"
             size="small"
             color="red"
-            @click="todoStore.deleteTodo(todo.id)"
+            @click="deleteTodo(todo.id)"
           >
             <v-icon>
               mdi-delete
