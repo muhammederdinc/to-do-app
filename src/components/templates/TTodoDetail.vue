@@ -10,25 +10,36 @@ defineProps({
 </script>
 
 <template>
-  <div class="d-flex justify-center pa-4">
+  <div class="d-flex flex-column justify-center align-center h-100 pa-4">
     <v-card
-      class="text-white"
-      color="blue-lighten-2"
-      width="800"
+      variant="outlined"
+      class="text-black"
+      color="blue-lighten-1"
+      max-width="800"
     >
-      <v-card-title class="text-h5">
+      <v-card-title class="text-h5 text-center">
         {{ todo.title }}
       </v-card-title>
 
       <v-card-text class="d-flex flex-column">
-        <span>
-          End Date: {{ new Intl.DateTimeFormat("en-US").format(new Date(todo.endDate)) }}
-        </span>
+        <div class="d-flex">
+          <span>
+            End Date: {{ new Intl.DateTimeFormat("en-US").format(new Date(todo.endDate)) }}
+          </span>
+          
+          <span class="ml-5">
+            Status: {{ todo.state }}
+          </span>
+        </div>
 
-        <span class="mt-2">
-          Status: {{ todo.state }}
+        <span class="mt-5">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel lorem eget enim iaculis elementum non non massa.
+          Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean gravida ex a aliquet maximus.
+          Nam id ligula id nisl rhoncus rutrum vel eu sapien. Quisque varius purus quis lorem tincidunt, a malesuada quam gravida.
+          Fusce ac odio vitae sapien dapibus maximus. Nulla facilisi. Proin faucibus volutpat tellus sed interdum.
+          Maecenas lacinia odio at blandit tincidunt. Sed fringilla sollicitudin sapien, a tristique lectus cursus vel.
         </span>
-        </v-card-text>
+      </v-card-text>
 
       <v-card-actions class="d-flex justify-end">
         <v-btn
