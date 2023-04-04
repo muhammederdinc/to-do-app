@@ -116,46 +116,46 @@ const updateTask = () => {
     </v-data-table>
 
     <Teleport to="#global-navigation-drawer">
-        <div class="text-center mt-5">
-          <h3>Edit Task</h3>
+      <div class="text-center mt-5">
+        <h3>Edit Task</h3>
 
-          <div class="px-4">
-            <v-text-field
-              v-model="navigationFormData.title"
-              variant="outlined"
-              label="Search"
-              clearable
-              density="compact"
-            />
-  
-            <VueDatePicker
-              v-model="navigationFormData.endDate"
-              :enable-time-picker="false"
-            />
-          </div>
+        <div class="px-4">
+          <v-text-field
+            v-model="navigationFormData.title"
+            variant="outlined"
+            label="Search"
+            clearable
+            density="compact"
+          />
 
-          <div class="mx-3 mt-8">
-            <v-btn
-              class="mb-3"
-              variant="outlined"
-              color="success"
-              block
-              @click="updateTask"
-            >
-              Update
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              color="red"
-              block
-              @click="navigationDrawerStore.close()"
-            >
-              Close
-            </v-btn>
-          </div>
+          <VueDatePicker
+            v-model="navigationFormData.endDate"
+            :enable-time-picker="false"
+          />
         </div>
-      </Teleport>
+
+        <div class="mx-3 mt-8">
+          <v-btn
+            class="mb-3"
+            variant="outlined"
+            color="success"
+            block
+            @click="updateTask"
+          >
+            Update
+          </v-btn>
+
+          <v-btn
+            variant="outlined"
+            color="red"
+            block
+            @click="navigationDrawerStore.close()"
+          >
+            Close
+          </v-btn>
+        </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
