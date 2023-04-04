@@ -1,7 +1,10 @@
 <script setup>
 import { useTodo } from './composables/todo'
+import { useEditTodoWithTeleport } from '@/composables/editTodoWithTeleport'
+import TEditTodoTeleport from '@/components/TEditTodoTeleport.vue'
 
 const { todo } = useTodo()
+const { updateTask, openNavigationDrawer, closeNavigationDrawer } = useEditTodoWithTeleport()
 </script>
 
 <template>
@@ -17,7 +20,7 @@ const { todo } = useTodo()
 
       <v-card-subtitle class="d-flex flex-column">
         <span>
-          End Date: {{ todo.endDate }}
+          End Date: {{ new Intl.DateTimeFormat("en-US").format(new Date(todo.endDate)) }}
         </span>
 
         <span class="mt-2">
@@ -26,10 +29,16 @@ const { todo } = useTodo()
         </v-card-subtitle>
 
       <v-card-actions class="d-flex justify-end">
-        <v-btn variant="outlined">
+        <v-btn variant="outlined" @click="openNavigationDrawer">
           Update Todo
         </v-btn>
       </v-card-actions>
     </v-card>
+
+    <TEditTodoTeleport
+      :initial-form-data="todo"
+      @submit="updateTask"
+      @close="closeNavigationDrawer"
+    />
   </div>
 </template>
