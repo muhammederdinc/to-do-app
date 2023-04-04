@@ -7,8 +7,9 @@ import TFooter from './components/TFooter.vue'
 import TCreateTodoModal from './components/TCreateTodoModal.vue'
 // Stores
 import { useGlobalNavigationDrawer } from '@/stores/globalNavigationDrawer'
-import { useTodoStore } from '@/stores/todo'
 import { useSnackbarStore } from '@/stores/snackbar'
+// Composables
+import { useCreateTodoWithModal } from '@/composables/createTodoWithModal'
 
 const navigationDrawerStore = useGlobalNavigationDrawer()
 const isDrawerVisible = ref(false)
@@ -26,15 +27,8 @@ const routingButtons = [
 ]
 
 const { snackbar } = useSnackbarStore()
+const { isVisible: isModalVisible, createTodo } = useCreateTodoWithModal()
 
-// Create a new todo
-const todoStore = useTodoStore()
-const isModalVisible = ref(false)
-
-const createTodo = (params) => {
-  todoStore.addTodo(params)
-  isModalVisible.value = false
-}
 </script>
 
 <template>
