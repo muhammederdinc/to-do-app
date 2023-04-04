@@ -4,7 +4,7 @@ import { reactive } from "vue";
 export const useSnackbar = defineStore("snackbar", () => {
   // State
   const snackbar = reactive({
-    isVisible: true,
+    isVisible: false,
     message: "İşlem başarılı",
     color: "success",
     timeout: 5000,
