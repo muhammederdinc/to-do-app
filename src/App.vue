@@ -10,25 +10,13 @@ import { useGlobalNavigationDrawer } from '@/stores/globalNavigationDrawer'
 import { useSnackbarStore } from '@/stores/snackbar'
 // Composables
 import { useCreateTodoWithModal } from '@/composables/createTodoWithModal'
+// Constants
+import { MenuItems } from '@/constants/index.js';
 
 const navigationDrawerStore = useGlobalNavigationDrawer()
-const isDrawerVisible = ref(false)
-const routingButtons = [
-  {
-    text: 'Home Page',
-    value: 'home',
-    path: '/'
-  },
-  {
-    text: 'To-Do List',
-    value: 'list',
-    path: '/to-do-list'
-  }
-]
-
 const { snackbar } = useSnackbarStore()
 const { isVisible: isModalVisible, createTodo } = useCreateTodoWithModal()
-
+const isDrawerVisible = ref(false)
 </script>
 
 <template>
@@ -36,7 +24,7 @@ const { isVisible: isModalVisible, createTodo } = useCreateTodoWithModal()
     <v-navigation-drawer v-if="isDrawerVisible" v-model="isDrawerVisible">
       <v-list>
         <v-list-item
-          v-for="(btn, index) in routingButtons"
+          v-for="(btn, index) in MenuItems"
           :key="index"
           :title="btn.text"
           :value="btn.value"
@@ -55,7 +43,7 @@ const { isVisible: isModalVisible, createTodo } = useCreateTodoWithModal()
     </v-navigation-drawer>
 
     <THeader
-      :routingButtons="routingButtons"
+      :routingButtons="MenuItems"
       @toggleDrawerVisibility="isDrawerVisible = !isDrawerVisible"
       @showCreateTodoModal="isModalVisible = true"
     />
