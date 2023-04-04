@@ -8,6 +8,7 @@ import TCreateTodoModal from './components/TCreateTodoModal.vue'
 // Stores
 import { useGlobalNavigationDrawer } from '@/stores/globalNavigationDrawer'
 import { useTodoStore } from '@/stores/todo'
+import { useSnackbarStore } from '@/stores/snackbar'
 
 const navigationDrawerStore = useGlobalNavigationDrawer()
 const isDrawerVisible = ref(false)
@@ -23,6 +24,8 @@ const routingButtons = [
     path: '/to-do-list'
   }
 ]
+
+const { snackbar } = useSnackbarStore()
 
 // Create a new todo
 const todoStore = useTodoStore()
@@ -68,10 +71,19 @@ const createTodo = (params) => {
     </v-main>
 
     <TFooter />
+
     <TCreateTodoModal
       v-if="isModalVisible"
       @submit="createTodo"
       @close="isModalVisible = false"
     />
+
+    <v-snackbar
+      v-model="snackbar.isVisible"
+      :color="snackbar.color"
+      :timeout="snackbar.timeout"
+    >
+      {{ snackbar.message }}
+    </v-snackbar>
   </v-app>
 </template>
