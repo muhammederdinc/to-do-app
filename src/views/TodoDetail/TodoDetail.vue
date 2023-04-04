@@ -36,7 +36,7 @@ const { updateTask, openNavigationDrawer, closeNavigationDrawer } = useEditTodoW
     </v-card>
 
     <TEditTodoTeleport
-      :initial-form-data="todo"
+      :initial-form-data="{...todo}"
       @submit="updateTask"
       @close="closeNavigationDrawer"
     />

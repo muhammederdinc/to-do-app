@@ -12,7 +12,7 @@ const props = defineProps({
 })
 
 // Data
-const formData = reactive({ ...props.initialFormData })
+const formData = reactive(props.initialFormData)
 </script>
 
 <template>
