@@ -34,6 +34,17 @@ const updateTask = () => {
 const searchTodo = ({ target }) => {
   todoList.value = todoStore.items.filter((todo) => todo.title.toLowerCase().includes(target.value.toLowerCase()))
 }
+
+const filterStatus = ref('')
+const filterTodo = () => {
+  if(!filterStatus.value) {
+    todoList.value = todoStore.items
+
+    return
+  }
+
+  todoList.value = todoStore.items.filter((todo) => todo.state === filterStatus.value)
+}
 </script>
 
 <template>
@@ -42,7 +53,7 @@ const searchTodo = ({ target }) => {
       <v-data-table
         v-model:sort-by="sortBy"
         :headers="ToDoListTableHeaders"
-        :items="todoStore.items"
+        :items="todoList"
         :search="search"
         class="elevation-1"
       >
@@ -81,21 +92,33 @@ const searchTodo = ({ target }) => {
         <template v-slot:top>
           <div class="t-to-do-list__table-header d-flex align-center pl-3">
             <h3>My To-do List </h3>
-  
+
             <v-spacer />
-  
-            <v-responsive
-              max-width="344"
-            >
-              <v-text-field
-                v-model="search"
-                variant="outlined"
-                label="Search"
-                class="pa-4"
-                clearable
-                density="compact"
+
+            <div class="d-flex">
+              <v-switch
+                v-model="filterStatus"
+                color="success"
+                hide-details
+                true-value="completed"
+                false-value=""
+                label="Completed Todo"
+                @change="filterTodo"
               />
-            </v-responsive>
+              
+              <v-responsive
+                width="300"
+              >
+                <v-text-field
+                  v-model="search"
+                  variant="outlined"
+                  label="Search"
+                  class="pa-4"
+                  clearable
+                  density="compact"
+                />
+              </v-responsive>
+            </div>
           </div>
         </template>
   
@@ -124,6 +147,16 @@ const searchTodo = ({ target }) => {
 
     <div class="d-sm-none">
       <v-text-field label="Search" variant="outlined" @input="searchTodo" />
+
+      <v-switch
+        v-model="filterStatus"
+        color="success"
+        hide-details
+        true-value="completed"
+        false-value=""
+        label="Completed Todo"
+        @change="filterTodo"
+      />
 
       <v-card class="mt-5" v-for="todo in todoList" :key="todo.id">
         <v-card-title>
@@ -159,6 +192,7 @@ const searchTodo = ({ target }) => {
             :false-value="TodoStatus.TODO"
             hide-details
           />
+
           <v-spacer />
 
           <v-btn
