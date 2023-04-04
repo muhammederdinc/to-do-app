@@ -18,7 +18,7 @@ const { updateTask, openNavigationDrawer, closeNavigationDrawer } = useEditTodoW
         {{ todo.title }}
       </v-card-title>
 
-      <v-card-subtitle class="d-flex flex-column">
+      <v-card-text class="d-flex flex-column">
         <span>
           End Date: {{ new Intl.DateTimeFormat("en-US").format(new Date(todo.endDate)) }}
         </span>
@@ -26,7 +26,7 @@ const { updateTask, openNavigationDrawer, closeNavigationDrawer } = useEditTodoW
         <span class="mt-2">
           Status: {{ todo.state }}
         </span>
-        </v-card-subtitle>
+        </v-card-text>
 
       <v-card-actions class="d-flex justify-end">
         <v-btn variant="outlined" @click="openNavigationDrawer">
