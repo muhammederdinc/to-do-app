@@ -31,7 +31,10 @@ defineProps({
         </v-card-text>
 
       <v-card-actions class="d-flex justify-end">
-        <v-btn variant="outlined" @click="$emit('openNavigationDrawer')">
+        <v-btn
+          variant="outlined"
+          @click="$emit('openNavigationDrawer')"
+        >
           Update Todo
         </v-btn>
       </v-card-actions>
