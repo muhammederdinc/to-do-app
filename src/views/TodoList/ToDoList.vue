@@ -1,34 +1,28 @@
 <script setup>
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 // Stores
 import { useTodoStore } from '@/stores/todo'
-import { useGlobalNavigationDrawer } from '@/stores/globalNavigationDrawer'
 // Components
-import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+import TEditTodoTeleport from '@/components/TEditTodoTeleport.vue'
 // Composables
+import { useEditTodoWithTeleport } from '@/composables/editTodoWithTeleport'
 import { useTodoList } from './composables/todoList'
 
 const { search, sortBy, ToDoListTableHeaders, TodoStatus } = useTodoList()
 const todoStore = useTodoStore()
 const todoList = ref(todoStore.items)
+const { updateTask, openNavigationDrawer, closeNavigationDrawer } = useEditTodoWithTeleport()
 
 // Edit Task with Global Navigation Drawer
-const navigationDrawerStore = useGlobalNavigationDrawer()
-
-const navigationFormData = ref({
-  title: '',
-  endDate: '',
-})
+const navigationFormData = reactive({})
 
 const openGlobalNavigationDrawer = (item) => {
-  navigationDrawerStore.open()
-  navigationFormData.value = { ...item }
-}
+  navigationFormData.id = item.id
+  navigationFormData.title = item.title
+  navigationFormData.endDate = item.endDate
+  navigationFormData.state = item.state
 
-const updateTask = () => {
-  todoStore.updateTodo(navigationFormData.value.id, navigationFormData.value)
-  navigationDrawerStore.close()
+  openNavigationDrawer()
 }
 
 const searchTodo = ({ target }) => {
@@ -225,47 +219,11 @@ const filterTodo = () => {
       </v-card>
     </div>
 
-    <Teleport to="#global-navigation-drawer">
-      <div class="text-center mt-5">
-        <h3>Edit Task</h3>
-
-        <div class="px-4">
-          <v-text-field
-            v-model="navigationFormData.title"
-            variant="outlined"
-            label="Search"
-            clearable
-            density="compact"
-          />
-
-          <VueDatePicker
-            v-model="navigationFormData.endDate"
-            :enable-time-picker="false"
-          />
-        </div>
-
-        <div class="mx-3 mt-8">
-          <v-btn
-            class="mb-3"
-            variant="outlined"
-            color="success"
-            block
-            @click="updateTask"
-          >
-            Update
-          </v-btn>
-
-          <v-btn
-            variant="outlined"
-            color="red"
-            block
-            @click="navigationDrawerStore.close()"
-          >
-            Close
-          </v-btn>
-        </div>
-      </div>
-    </Teleport>
+    <TEditTodoTeleport
+      :initial-form-data="navigationFormData"
+      @submit="updateTask"
+      @close="closeNavigationDrawer"
+    />
   </div>
 </template>
 
