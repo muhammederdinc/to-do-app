@@ -6,15 +6,11 @@ import { useGlobalNavigationDrawer } from '@/stores/globalNavigationDrawer'
 // Components
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-// Constants
-import { TodoStatus, ToDoListTableHeaders } from '@/constants/index.js';
+// Composables
+import { useTodoList } from './composables/useTodoList'
 
-// Stores Instance
+const { search, sortBy, ToDoListTableHeaders } = useTodoList()
 const todoStore = useTodoStore()
-
-// v-data-table
-const search = ref('')
-const sortBy = ref([])
 
 // Edit Task with Global Navigation Drawer
 const navigationDrawerStore = useGlobalNavigationDrawer()
