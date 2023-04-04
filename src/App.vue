@@ -7,31 +7,16 @@ import TFooter from './components/TFooter.vue'
 import TCreateTodoModal from './components/TCreateTodoModal.vue'
 // Stores
 import { useGlobalNavigationDrawer } from '@/stores/globalNavigationDrawer'
-import { useTodoStore } from '@/stores/todo'
+import { useSnackbarStore } from '@/stores/snackbar'
+// Composables
+import { useCreateTodoWithModal } from '@/composables/createTodoWithModal'
+// Constants
+import { MenuItems } from '@/constants/index.js';
 
 const navigationDrawerStore = useGlobalNavigationDrawer()
+const { snackbar } = useSnackbarStore()
+const { isVisible: isModalVisible, createTodo } = useCreateTodoWithModal()
 const isDrawerVisible = ref(false)
-const routingButtons = [
-  {
-    text: 'Home Page',
-    value: 'home',
-    path: '/'
-  },
-  {
-    text: 'To-Do List',
-    value: 'list',
-    path: '/to-do-list'
-  }
-]
-
-// Create a new todo
-const todoStore = useTodoStore()
-const isModalVisible = ref(false)
-
-const createTodo = (params) => {
-  todoStore.addTodo(params)
-  isModalVisible.value = false
-}
 </script>
 
 <template>
@@ -39,7 +24,7 @@ const createTodo = (params) => {
     <v-navigation-drawer v-if="isDrawerVisible" v-model="isDrawerVisible">
       <v-list>
         <v-list-item
-          v-for="(btn, index) in routingButtons"
+          v-for="(btn, index) in MenuItems"
           :key="index"
           :title="btn.text"
           :value="btn.value"
@@ -58,7 +43,7 @@ const createTodo = (params) => {
     </v-navigation-drawer>
 
     <THeader
-      :routingButtons="routingButtons"
+      :routingButtons="MenuItems"
       @toggleDrawerVisibility="isDrawerVisible = !isDrawerVisible"
       @showCreateTodoModal="isModalVisible = true"
     />
@@ -68,10 +53,19 @@ const createTodo = (params) => {
     </v-main>
 
     <TFooter />
+
     <TCreateTodoModal
       v-if="isModalVisible"
       @submit="createTodo"
       @close="isModalVisible = false"
     />
+
+    <v-snackbar
+      v-model="snackbar.isVisible"
+      :color="snackbar.color"
+      :timeout="snackbar.timeout"
+    >
+      {{ snackbar.message }}
+    </v-snackbar>
   </v-app>
 </template>

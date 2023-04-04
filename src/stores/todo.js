@@ -1,10 +1,12 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useSnackbarStore } from '@/stores/snackbar'
 // Constants
 import { TodoStatus } from '@/constants/index.js';
 
 export const useTodoStore = defineStore("todo", () => {
   // State
+  const { showSnackbar } = useSnackbarStore()
   const items = ref([
     { id: 0, title: "Learn Vue 3", endDate: "1/14/2023", state: TodoStatus.TODO },
     { id: 1, title: "Learn Vue 2", endDate: "9/14/2023", state: TodoStatus.COMPLETED },
@@ -20,6 +22,8 @@ export const useTodoStore = defineStore("todo", () => {
   const updateTodo = (id, item) => {
     const index = items.value.findIndex((item) => item.id === id);
     items.value[index] = item;
+
+    showSnackbar('To-do updated successfully', 'success')
   };
 
   const deleteTodo = (id) => {
@@ -29,6 +33,8 @@ export const useTodoStore = defineStore("todo", () => {
       ...items.value.slice(0, index),
       ...items.value.slice(index + 1),
     ];
+
+    showSnackbar('Todo deleted successfully', 'success')
   };
 
   const addTodo = (item) => {
@@ -39,6 +45,8 @@ export const useTodoStore = defineStore("todo", () => {
     }
 
     items.value = [...items.value, newTodo];
+
+    showSnackbar('To-do has been created successfully', 'success')
   };
 
   return { items, updateTodo, deleteTodo, addTodo, getTodoById };
