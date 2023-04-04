@@ -1,12 +1,7 @@
 <script setup>
-import { useRouter } from 'vue-router'
-import { useTodoStore } from '@/stores/todo'
+import { useTodo } from './composables/todo'
 
-const router = useRouter()
-const { getTodoById } = useTodoStore()
-
-const { id } = router.currentRoute.value.params
-const todo = getTodoById(Number(id))
+const { todo } = useTodo()
 </script>
 
 <template>
@@ -14,7 +9,6 @@ const todo = getTodoById(Number(id))
     <v-card
       class="text-white"
       color="blue-lighten-2"
-      theme="dark"
       width="800"
     >
       <v-card-title class="text-h5">
