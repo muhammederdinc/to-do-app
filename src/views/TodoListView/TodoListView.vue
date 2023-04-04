@@ -52,7 +52,10 @@ const {
         </template>
   
         <template v-slot:item.endDate="{ item }">
-          <span v-if="item.raw.state === TodoStatus.COMPLETED" class="text-decoration-line-through">
+          <span
+            v-if="item.raw.state === TodoStatus.COMPLETED"
+            class="text-decoration-line-through"
+          >
             {{ new Intl.DateTimeFormat("en-US").format(new Date(item.raw.endDate)) }}
           </span>
   
@@ -130,7 +133,11 @@ const {
         @change="filterTodo"
       />
 
-      <v-card class="mt-5" v-for="todo in todoList" :key="todo.id">
+      <v-card
+        v-for="todo in todoList"
+        :key="todo.id"
+        class="mt-5"
+      >
         <v-card-title>
           {{ todo.title }}
         </v-card-title>
