@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { reactive } from "vue";
 
-export const useSnackbar = defineStore("snackbar", () => {
+export const useSnackbarStore = defineStore("snackbar", () => {
   // State
   const snackbar = reactive({
     isVisible: false,
