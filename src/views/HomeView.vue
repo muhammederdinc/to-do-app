@@ -6,7 +6,7 @@ const title = 'Welcome to our todo app! This app helps you manage your tasks and
   <div class="d-flex flex-column justify-center align-center h-100 text-center">
     <img src="@/assets/home.svg" class="home-svg" alt="todo SVG">
 
-    <span class="mt-10">
+    <span class="mt-5">
       {{ title }}
     </span>
   </div>
@@ -14,7 +14,7 @@ const title = 'Welcome to our todo app! This app helps you manage your tasks and
 
 <style>
 .home-svg {
-  height: 300px;
+  height: 200px;
   max-height: 50%;
   max-width: 100%;
 }
