@@ -7,7 +7,7 @@ export function useFormValidation(emit, formData) {
   const titleRules = [
     v => !!v || 'Title is required',
     v => (v && v.length <= 30) || 'Title must be less than 30 characters',
-    v => /^[a-zA-ZğüşıöçĞÜŞİÖÇ ]+$/.test(v) || 'Title can only contain letters and spaces'
+    v => /^[a-zA-ZğüşıöçĞÜŞİÖÇ ]+$/.test(v.trim()) || 'Title can only contain letters and spaces'
   ]
 
   // Methods
