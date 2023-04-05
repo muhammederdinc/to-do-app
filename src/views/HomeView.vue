@@ -3,7 +3,7 @@ const title = 'Welcome to our todo app! This app helps you manage your tasks and
 </script>
 
 <template>
-  <div class="d-flex flex-column justify-center align-center h-100">
+  <div class="d-flex flex-column justify-center align-center h-100 text-center">
     <img src="@/assets/home.svg" class="home-svg" alt="todo SVG">
 
     <span class="mt-10">
