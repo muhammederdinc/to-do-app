@@ -1,9 +1,11 @@
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 // Components
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import TInputErrorMessage from '@/components/TInputErrorMessage.vue'
+// Composables
+import { useFormValidation } from '@/composables/formValidation';
 
 const props = defineProps({
   initialFormData: {
@@ -16,29 +18,15 @@ const props = defineProps({
 const emit = defineEmits(['submit', 'close'])
 
 // Data
-const form = ref(null)
-const isEndDateErrorMessageVisible = ref(false)
 const formData = reactive(props.initialFormData)
-const titleRules = [
-  v => !!v || 'Title is required',
-  v => (v && v.length <= 30) || 'Title must be less than 30 characters',
-  v => /^[a-zA-ZğüşıöçĞÜŞİÖÇ ]+$/.test(v) || 'Title can only contain letters and spaces'
-]
+const {
+  form,
+  submit,
+  titleRules,
+  isEndDateErrorMessageVisible
+} = useFormValidation(emit, formData)
 
 // Methods
-const submit = async () => {
-  isEndDateErrorMessageVisible.value = false
-  const { valid } = await form.value.validate()
-
-  if (!formData.endDate) {
-    isEndDateErrorMessageVisible.value = true
-  }
-
-  if (valid && !isEndDateErrorMessageVisible.value) {
-    emit('submit', formData)
-  }
-}
-
 const close = () => {
   isEndDateErrorMessageVisible.value = false
   emit('close')
