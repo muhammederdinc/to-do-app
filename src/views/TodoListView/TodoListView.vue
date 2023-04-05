@@ -77,10 +77,10 @@ const {
                 hide-details
                 true-value="completed"
                 false-value=""
-                label="Completed Todo"
+                :label="!filterStatus ? 'Show Completed Todo' : 'Show All Todo'"
                 @change="filterTodo"
               />
-              
+
               <v-responsive
                 width="300"
               >
@@ -121,7 +121,13 @@ const {
     </div>
 
     <div class="d-sm-none">
-      <v-text-field label="Search" variant="outlined" @input="searchTodo" />
+      <v-text-field
+        density="compact"
+        hide-details
+        label="Search"
+        variant="outlined"
+        @input="searchTodo"
+      />
 
       <v-switch
         v-model="filterStatus"
@@ -129,9 +135,11 @@ const {
         hide-details
         true-value="completed"
         false-value=""
-        label="Completed Todo"
+        :label="!filterStatus ? 'Show Completed Todo' : 'Show All Todo'"
         @change="filterTodo"
       />
+
+      <v-divider class="my-2" />
 
       <v-card
         v-for="todo in todoList"
