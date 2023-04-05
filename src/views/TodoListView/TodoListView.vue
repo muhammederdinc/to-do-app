@@ -120,7 +120,7 @@ const {
       </v-data-table>
     </div>
 
-    <div class="d-sm-none">
+    <div v-auto-animate class="d-sm-none">
       <v-text-field
         density="compact"
         hide-details
