@@ -8,9 +8,9 @@ export const useTodoStore = defineStore("todo", () => {
   // State
   const { showSnackbar } = useSnackbarStore()
   const items = ref([
-    { id: 0, title: "Learn Vue 3", endDate: "1/14/2023", state: TodoStatus.TODO },
-    { id: 1, title: "Learn Vue 2", endDate: "9/14/2023", state: TodoStatus.COMPLETED },
-    { id: 2, title: "Learn Pinia", endDate: "4/14/2023", state: TodoStatus.COMPLETED },
+    { id: 0, title: "Learn Vue", endDate: "1/14/2023", state: TodoStatus.TODO },
+    { id: 1, title: "Learn Pinia", endDate: "9/14/2023", state: TodoStatus.COMPLETED },
+    { id: 2, title: "Learn JavaScript", endDate: "4/14/2023", state: TodoStatus.COMPLETED },
   ]);
 
   // Getters
